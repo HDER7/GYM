@@ -29,11 +29,11 @@ function Trainings() {
     }, [firebase]);
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md">
+        <div className="container mx-auto mt-4 ">
             <h2 className="text-2xl font-semibold mb-4">Entrenamientos</h2>
             <ul>
                 {trainings.map((training) => (
-                    <li key={training.id} className="mb-2">
+                    <li key={training.id} className="mb-1 p-4 border rounded-lg bg-slate-100">
                         <div className="font-semibold">Fecha: {training.date}</div>
                         <div className="font-semibold">Hora: {training.time}</div>
                         <div>Descripción: {training.description}</div>

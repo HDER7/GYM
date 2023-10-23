@@ -6,6 +6,15 @@ import { FirebaseContext } from '../firebase';
 const UserRegister = () => {
     const {firebase} = useContext(FirebaseContext);
     const [error, setError] = useState('');
+    const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+    
+    const openSuccessModal = () => {
+        setSuccessModalOpen(true);
+    };
+    
+    const closeSuccessModal = () => {
+        setSuccessModalOpen(false);
+    };
 
     const handleSubmit1 = async (values) => {
         try {
@@ -36,7 +45,8 @@ const UserRegister = () => {
 
             setError(null);
 
-            console.log('Registro exitoso:');
+            openSuccessModal();
+            formik.resetForm();
         } catch (error) {
             setError(error.message);
         }
@@ -165,6 +175,23 @@ const UserRegister = () => {
                     Registrar Usuario
                 </button>
             </form>
+            {isSuccessModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <div className="modal-header">
+                            <h3>Registro Exitoso</h3>
+                        </div>
+                        <div className="modal-body">
+                            <p>El usuario se ha registrado correctamente.</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button onClick={closeSuccessModal} className="modal-close-button">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

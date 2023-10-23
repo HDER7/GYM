@@ -7,6 +7,15 @@ const RecordTraining = () => {
     const { firebase } = useContext(FirebaseContext);
     const [error, setError] = useState('');
     const [users, setUsers] = useState([]);
+    const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+    
+    const openSuccessModal = () => {
+        setSuccessModalOpen(true);
+    };
+    
+    const closeSuccessModal = () => {
+        setSuccessModalOpen(false);
+    };
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -44,14 +53,15 @@ const RecordTraining = () => {
                     date,
                     time,
                     description,
-                    username: user.username,
+                    username: selectedUser.username,
                 };
 
                 await db.collection('trains').add(newTrain);
 
                 setError(''); 
 
-                console.log('Entrenamiento registrado con éxito:', newTrain);
+                openSuccessModal();
+                formik.resetForm();
             }
         } catch (error) {
             setError(error.message);
@@ -150,6 +160,23 @@ const RecordTraining = () => {
                     Registrar Entrenamiento
                 </button>
             </form>
+            {isSuccessModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <div className="modal-header">
+                            <h3>Registro Exitoso</h3>
+                        </div>
+                        <div className="modal-body">
+                            <p>El entrenamiento se ha registrado correctamente.</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button onClick={closeSuccessModal} className="modal-close-button">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

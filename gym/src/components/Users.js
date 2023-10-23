@@ -54,10 +54,10 @@ const Users = () => {
       <h1 className="text-2xl font-bold mb-4">Lista de Usuarios</h1>
       <ul>
         {users.map((user) => (
-          <li key={user.id} className="mb-4 p-4 border rounded-lg">
+          <li key={user.id} className="mb-4 p-4 border rounded-lg bg-slate-100">
             <p className="text-lg font-semibold">Nombre: {user.name}</p>
             <p>Apellido: {user.lastname}</p>
-            <p>Cédula: {user.id}</p>
+            <p>Cédula: {user.cc}</p>
             <p>Nombre de usuario: {user.username}</p>
             <p>Email: {user.email}</p>
             <p>
