@@ -7,11 +7,11 @@ const UserRegister = () => {
     const {firebase} = useContext(FirebaseContext);
     const [error, setError] = useState('');
     const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
-    
+
     const openSuccessModal = () => {
         setSuccessModalOpen(true);
     };
-    
+
     const closeSuccessModal = () => {
         setSuccessModalOpen(false);
     };

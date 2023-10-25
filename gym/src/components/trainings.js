@@ -8,7 +8,7 @@ function Trainings() {
     useEffect(() => {
         const fetchTrainings = async () => {
             try {
-                const trainsCollection = firebase.db.collection('trains'); // Corregir el acceso a Firestore
+                const trainsCollection = firebase.db.collection('trains');
                 const trainingsSnapshot = await trainsCollection.get();
                 const trainingList = [];
 

@@ -8,11 +8,11 @@ const RecordTraining = () => {
     const [error, setError] = useState('');
     const [users, setUsers] = useState([]);
     const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
-    
+
     const openSuccessModal = () => {
         setSuccessModalOpen(true);
     };
-    
+
     const closeSuccessModal = () => {
         setSuccessModalOpen(false);
     };
@@ -58,7 +58,7 @@ const RecordTraining = () => {
 
                 await db.collection('trains').add(newTrain);
 
-                setError(''); 
+                setError('');
 
                 openSuccessModal();
                 formik.resetForm();

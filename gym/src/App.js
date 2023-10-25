@@ -16,14 +16,14 @@ function App() {
       <div>
         <Nav/>
           <Routes>
-            <Route exact path ='/' element={<Home/>}/> 
-            <Route path ='/register-user' element={<UserRegister/> }/> 
+            <Route exact path ='/' element={<Home/>}/>
+            <Route path ='/register-user' element={<UserRegister/> }/>
             <Route path ='/register-training' element={<RecordTraining/>}/>
             <Route path ='/trainings' element={<Trainings/>}/>
             <Route path ='/users' element={<Users/>}/>
           </Routes>
       </div>
-    </FirebaseContext.Provider>  
+    </FirebaseContext.Provider>
   );
 }
 

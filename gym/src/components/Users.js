@@ -33,11 +33,11 @@ const Users = () => {
     try {
       const db = getFirestore();
       const userToBlock = users.find((user) => user.id === userId);
-  
+
       if (userToBlock) {
         userToBlock.blocked = !userToBlock.blocked;
         setUsers([...users]);
-  
+
         const userRef = doc(db, 'users', userId);
         await updateDoc(userRef, { blocked: userToBlock.blocked });
       } else {
@@ -47,7 +47,6 @@ const Users = () => {
       console.error('Error toggling user block status:', error);
     }
   };
-  
 
   return (
     <div className="container mx-auto mt-4">
