@@ -23,19 +23,19 @@ const App = () => {
               options={{title: 'Inicio de sesion'}}
             />
             <Stack.Screen
-              name="Training"
-              component={Training}
-              options={{title: 'Entrenamientos'}}
-            />
-            <Stack.Screen
               name="Profile"
               component={Profile}
               options={{title: 'Perfil del usuario'}}
             />
             <Stack.Screen
+              name="Training"
+              component={Training}
+              options={{title: 'Entrenamientos'}}
+            />
+            <Stack.Screen
               name="NewWorkout"
               component={NewWorkout}
-              options={{title: 'Generar nuevo entrenamiento'}}
+              options={{title: 'Nuevo entrenamiento'}}
             />
           </Stack.Navigator>
         </NavigationContainer>

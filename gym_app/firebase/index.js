@@ -1,1 +1,4 @@
-import firebase from './firebase'
+/* eslint-disable prettier/prettier */
+import firebase from './firebase';
+
+export default firebase;

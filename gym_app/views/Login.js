@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Box,
   Heading,
@@ -11,11 +11,29 @@ import {
   NativeBaseProvider,
   Center,
 } from 'native-base';
-import {SSRProvider} from '@react-aria/ssr';
+import { useNavigation } from '@react-navigation/native';
+import FirebaseContext from '../context/firebase/firebaseContext';
 
 function Login() {
+  const navigate = useNavigation();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const { authenticateUser } = useContext(FirebaseContext);
+
+  const handleLogin = async () => {
+    try {
+      const user = await authenticateUser(email, password);
+      if (user) {
+        navigate.navigate('Profile',{user: user});
+      } else {
+        console.error('Contraseña o Email incorrecto.');
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
-    <SSRProvider>
       <NativeBaseProvider>
         <Center w="100%">
           <Box safeArea p="2" py="40%" w="100%" maxW="370">
@@ -42,11 +60,11 @@ function Login() {
             <VStack space={3} mt="8">
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
-                <Input size="lg" />
+                <Input size="lg" value={email} onChangeText={text => setEmail(text)}/>
               </FormControl>
               <FormControl>
-                <FormControl.Label>Contraseña</FormControl.Label>
-                <Input size="lg" type="password" />
+                <FormControl.Label text >Contraseña</FormControl.Label>
+                <Input size="lg" type="password" value={password} onChangeText={text => setPassword(text)}/>
                 <Link
                   _text={{
                     fontSize: 'md',
@@ -58,14 +76,13 @@ function Login() {
                   Olvidaste tu contraseña?
                 </Link>
               </FormControl>
-              <Button mt="2" colorScheme="blue">
+              <Button mt="2" colorScheme="blue" onPress={handleLogin}>
                 Iniciar Sesion
               </Button>
             </VStack>
           </Box>
         </Center>
       </NativeBaseProvider>
-    </SSRProvider>
   );
 }
 
