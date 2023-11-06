@@ -11,6 +11,7 @@ import {
 } from 'native-base';
 import { useRoute } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { ScrollView } from 'react-native';
 
 function NewWorkout() {
     const route = useRoute();
@@ -79,7 +80,7 @@ function NewWorkout() {
     return (
         <NativeBaseProvider>
             <Center flex={1} bg="blue.700">
-                <Box width="90%" bg="white" p={4} borderRadius="md" shadow={2}>
+                <Box width="90%" bg="white" p={3} borderRadius="md" shadow={2}>
                     <Text fontSize="3xl" fontWeight="bold" mb={2}>
                         Reservar entrenamiento
                     </Text>
@@ -117,8 +118,9 @@ function NewWorkout() {
                         placeholder="Descripción"
                         value={description}
                         onChangeText={setDescription}
-                        fontWeight="bold" fontSize={16}
-                        mt={3}
+                        fontWeight="bold" fontSize={20}
+                        mt={3} mb={3}
+                        h={300}
                     />
                     {e && <Text color="red.500" fontSize={18}>{e}</Text>}
                     <Button mt={2} colorScheme="blue" onPress={handleAddWorkout}>
