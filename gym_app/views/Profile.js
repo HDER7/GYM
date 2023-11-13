@@ -45,16 +45,16 @@ function Profile() {
                         borderWidth="1" borderColor="coolGray.300"
                         maxW="96" shadow="3" bg="coolGray.100" p="5" mt={3}>
                         <Text fontSize="2xl" fontWeight="bold" mb={2}>
-                            Reservar Entrenamiento
+                            Reservar Clase
                         </Text>
                     </Pressable>
                     <Pressable
-                        onPress={() => navigate.navigate('Training',{user: user.username})}
+                        onPress={() => navigate.navigate('Booking',{user: user.username})}
                         rounded="8" overflow="hidden"
                         borderWidth="1" borderColor="coolGray.300"
                         maxW="96" shadow="3" bg="coolGray.100" p="5" mt={3} mb={3}>
                         <Text fontSize="2xl" fontWeight="bold" mb={2}>
-                            Entrenamientos
+                            Reservas
                         </Text>
                     </Pressable>
                 </Box>

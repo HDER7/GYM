@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Training from './views/Training';
 import Profile from './views/Profile';
 import Login from './views/Login';
+import Booking from './views/Booking';
 import NewWorkout from './views/NewWorkout';
 import FirebaseStage from './context/firebase/firebaseStage';
 import RequestStage from './context/requests/requestStage';
@@ -28,14 +29,19 @@ const App = () => {
               options={{title: 'Perfil del usuario'}}
             />
             <Stack.Screen
+              name="NewWorkout"
+              component={NewWorkout}
+              options={{title: 'Reservar Clase'}}
+            />
+            <Stack.Screen
+              name="Booking"
+              component={Booking}
+              options={{title: 'Reserva'}}
+            />
+            <Stack.Screen
               name="Training"
               component={Training}
               options={{title: 'Entrenamientos'}}
-            />
-            <Stack.Screen
-              name="NewWorkout"
-              component={NewWorkout}
-              options={{title: 'Nuevo entrenamiento'}}
             />
           </Stack.Navigator>
         </NavigationContainer>

@@ -45,7 +45,7 @@ const FirebaseStage = props => {
     };
     const addWorkout = async (workout) => {
         try {
-            const trainsRef = firebase.db.collection('trains');
+            const trainsRef = firebase.db.collection('class');
             const w = await trainsRef.add(workout);
             console.log('Reserva exitosa',w);
         } catch (error) {
@@ -54,7 +54,26 @@ const FirebaseStage = props => {
         }
     };
 
-    const getMyWorkouts = async (username) => {
+    const getMyWorkout = async (username) => {
+        try {
+            const workoutsRef = firebase.db.collection('class');
+            const querySnapshot = await workoutsRef.where('username', '==', username).get();
+            const myWorkouts = querySnapshot.docs.map((doc) => {
+                const workout = doc.data();
+                return {
+                    id: doc.id,
+                    date: workout.date,
+                    time: workout.time,
+                    description: workout.description,
+                };
+            });
+            return myWorkouts;
+        } catch (error) {
+            console.error('Error', error);
+            throw error;
+        }
+    };
+    const getMyTrainings = async (username) => {
         try {
             const workoutsRef = firebase.db.collection('trains');
             const querySnapshot = await workoutsRef.where('username', '==', username).get();
@@ -76,7 +95,7 @@ const FirebaseStage = props => {
 
     const cancelWorkout = async (workoutId) => {
         try {
-            const workoutsRef = firebase.db.collection('trains');
+            const workoutsRef = firebase.db.collection('class');
             await workoutsRef.doc(workoutId).delete();
         } catch (error) {
             console.error('Error eliminado', error);
@@ -92,8 +111,9 @@ const FirebaseStage = props => {
                 getUsers,
                 authenticateUser,
                 addWorkout,
-                getMyWorkouts,
+                getMyWorkout,
                 cancelWorkout,
+                getMyTrainings,
             }}
         >
             {props.children}

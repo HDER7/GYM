@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import FirebaseContext from '../context/firebase/firebaseContext';
 import {
     NativeBaseProvider,
@@ -11,11 +11,10 @@ import {
 } from 'native-base';
 import { useRoute } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ScrollView } from 'react-native';
 
 function NewWorkout() {
     const route = useRoute();
-    const { user,blocked } = route.params;
+    const { user, blocked } = route.params;
     const { addWorkout } = useContext(FirebaseContext);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(new Date());
@@ -23,9 +22,10 @@ function NewWorkout() {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
     const [e, setError] = useState(null);
+    const [userWorkout, setUserWorkout] = useState(null);
 
     const handleAddWorkout = async () => {
-        if (blocked){
+        if (blocked) {
             setError('Usted se encuentra bloqueado');
             return;
         }
@@ -39,7 +39,7 @@ function NewWorkout() {
         const twoHoursFromNow = new Date(now.getTime() + 2 * 60 * 60 * 1000);
 
         if (selectedDateTime <= twoHoursFromNow) {
-            setError('Debes agendar al menos 2 horas en el futuro.');
+            setError('Debes agendar al menos 2 horas antes.');
             return;
         }
 
@@ -58,6 +58,7 @@ function NewWorkout() {
             setSelectedDate(new Date());
             setSelectedTime(new Date());
             setDescription('');
+            setUserWorkout(workout);
         } catch (error) {
             console.error('Error al reservar', error);
         }
@@ -82,22 +83,20 @@ function NewWorkout() {
             <Center flex={1} bg="blue.700">
                 <Box width="90%" bg="white" p={3} borderRadius="md" shadow={2}>
                     <Text fontSize="3xl" fontWeight="bold" mb={2}>
-                        Reservar entrenamiento
+                        Reservar Clase
                     </Text>
                     {showDatePicker && (
-                    <DateTimePicker
-                        value={selectedDate}
-                        mode="date"
-                        display="default"
-                        onChange={handleDateChange}
-                    />
+                        <DateTimePicker
+                            value={selectedDate}
+                            mode="date"
+                            display="default"
+                            onChange={handleDateChange}
+                        />
                     )}
-                    <Button
-                        mt={2}
-                        colorScheme="blue"
-                        onPress={() => setShowDatePicker(true)}
-                    >
-                        <Text fontWeight="bold" fontSize={20} color="white">Seleccionar Fecha</Text>
+                    <Button mt={2} colorScheme="blue" onPress={() => setShowDatePicker(true)}>
+                        <Text fontWeight="bold" fontSize={20} color="white">
+                            Seleccionar Fecha
+                        </Text>
                     </Button>
                     {showTimePicker && (
                         <DateTimePicker
@@ -107,24 +106,26 @@ function NewWorkout() {
                             onChange={handleTimeChange}
                         />
                     )}
-                    <Button
-                        mt={2}
-                        colorScheme="blue"
-                        onPress={() => setShowTimePicker(true)}
-                    >
-                        <Text fontWeight="bold" fontSize={20} color="white">Seleccionar Hora</Text>
+                    <Button mt={2} colorScheme="blue" onPress={() => setShowTimePicker(true)}>
+                        <Text fontWeight="bold" fontSize={20} color="white">
+                            Seleccionar Hora
+                        </Text>
                     </Button>
                     <TextArea
                         placeholder="Descripción"
                         value={description}
                         onChangeText={setDescription}
-                        fontWeight="bold" fontSize={20}
-                        mt={3} mb={3}
+                        fontWeight="bold"
+                        fontSize={20}
+                        mt={3}
+                        mb={3}
                         h={300}
                     />
                     {e && <Text color="red.500" fontSize={18}>{e}</Text>}
                     <Button mt={2} colorScheme="blue" onPress={handleAddWorkout}>
-                        <Text fontWeight="bold" fontSize={20} color="white">Reservar</Text>
+                        <Text fontWeight="bold" fontSize={20} color="white">
+                            Reservar
+                        </Text>
                     </Button>
                 </Box>
             </Center>
@@ -133,3 +134,4 @@ function NewWorkout() {
 }
 
 export default NewWorkout;
+
