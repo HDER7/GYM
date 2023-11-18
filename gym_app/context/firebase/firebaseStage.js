@@ -73,6 +73,25 @@ const FirebaseStage = props => {
             throw error;
         }
     };
+    const getWorkout = async () => {
+        try {
+            const workoutsRef = firebase.db.collection('class');
+            const querySnapshot = await workoutsRef.get();
+            const myWorkouts = querySnapshot.docs.map((doc) => {
+                const workout = doc.data();
+                return {
+                    id: doc.id,
+                    date: workout.date,
+                    time: workout.time,
+                    description: workout.description,
+                };
+            });
+            return myWorkouts;
+        } catch (error) {
+            console.error('Error', error);
+            throw error;
+        }
+    };
     const getMyTrainings = async (username) => {
         try {
             const workoutsRef = firebase.db.collection('trains');
@@ -102,6 +121,16 @@ const FirebaseStage = props => {
             throw error;
         }
     };
+    const addTrainner = async (Trainner) => {
+        try {
+            const trainsRef = firebase.db.collection('Trainner');
+            const w = await trainsRef.add(Trainner);
+            console.log('Registrado',w);
+        } catch (error) {
+            console.error('Error Registrando', error);
+            throw error;
+        }
+    };
 
     return (
         <FirebaseContext.Provider
@@ -114,6 +143,8 @@ const FirebaseStage = props => {
                 getMyWorkout,
                 cancelWorkout,
                 getMyTrainings,
+                addTrainner,
+                getWorkout,
             }}
         >
             {props.children}

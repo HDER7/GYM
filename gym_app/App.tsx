@@ -9,6 +9,7 @@ import Booking from './views/Booking';
 import NewWorkout from './views/NewWorkout';
 import FirebaseStage from './context/firebase/firebaseStage';
 import RequestStage from './context/requests/requestStage';
+import SignUp from './views/SignUp';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,11 @@ const App = () => {
               name="Training"
               component={Training}
               options={{title: 'Entrenamientos'}}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{title: 'Registrar entrenador'}}
             />
           </Stack.Navigator>
         </NavigationContainer>

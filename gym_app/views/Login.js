@@ -72,8 +72,8 @@ function Login() {
                     color: 'blue.700',
                   }}
                   alignSelf="flex-end"
-                  mt="1">
-                  Olvidaste tu contraseña?
+                  mt="1" onPress={navigate.navigate('SignUp')}>
+                  Registrar Entreneador
                 </Link>
               </FormControl>
               <Button mt="2" colorScheme="blue" onPress={handleLogin}>

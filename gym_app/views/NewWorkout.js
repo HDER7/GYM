@@ -8,6 +8,7 @@ import {
     Box,
     Button,
     TextArea,
+    Checkbox,
 } from 'native-base';
 import { useRoute } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -21,6 +22,7 @@ function NewWorkout() {
     const [description, setDescription] = useState('');
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
     const [e, setError] = useState(null);
     const [userWorkout, setUserWorkout] = useState(null);
 
@@ -50,6 +52,7 @@ function NewWorkout() {
             date: formattedDate,
             time: formattedTime,
             description: description,
+            custom: isChecked,
         };
 
         try {
@@ -121,6 +124,9 @@ function NewWorkout() {
                         mb={3}
                         h={300}
                     />
+                    <Checkbox isChecked colorScheme="green" _checked={setIsChecked(isChecked)}>
+                            Clase Personalizada
+                        </Checkbox>
                     {e && <Text color="red.500" fontSize={18}>{e}</Text>}
                     <Button mt={2} colorScheme="blue" onPress={handleAddWorkout}>
                         <Text fontWeight="bold" fontSize={20} color="white">
